@@ -1,5 +1,6 @@
 import { Switch, Text, View } from "react-native";
 import { styles } from "./styles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
   requestForegroundPermissionsAsync,
@@ -70,13 +71,15 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.switchContainer}>
-        <Text>{getRoute ? "ativo" : "Inativo"}</Text>
         <Switch
           trackColor={{ false: "#777575", true: "#115500" }}
           ios_backgroundColor="#3e3e3e"
           onValueChange={(value) => handleGetRoute(value)}
           value={getRoute}
         />
+        <Text>{getRoute ? "ativo" : "Inativo "} |</Text>
+
+        {route.length >= 0 && <Text>Pontos salvos: {route.length} </Text>}
       </View>
       {location && (
         <MapView
@@ -100,8 +103,26 @@ export default function App() {
               coordinates={[...route]}
               strokeColor="#12a336"
               strokeWidth={2}
+              pointerEvents="box-only"
             />
           )}
+
+          {route &&
+            route.map((data, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="map-marker"
+                  size={16}
+                  color="#0b9121"
+                />
+              </Marker>
+            ))}
         </MapView>
       )}
     </View>
