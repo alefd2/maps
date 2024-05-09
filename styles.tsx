@@ -7,4 +7,20 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  map: {
+    flex: 1,
+    width: " 100%",
+  },
+  switchContainer: {
+    backgroundColor: "#ffffffba",
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    left: "-40%",
+    zIndex: 9999,
+    margin: "auto",
+  },
+  switchLabel: {
+    zIndex: 9999,
+  },
 });
