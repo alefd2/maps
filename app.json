@@ -20,7 +20,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.alefoliv.maps"
+      "package": "com.alefoliv.maps",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAa815UDfNDAD8WOtdpiCAj61mq46RkDKs"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +35,10 @@
         "projectId": "598eaa4b-c936-4f57-85dd-ab7665a605cd"
       }
     },
-    "owner": "conectados"
+    "owner": "conectados",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/598eaa4b-c936-4f57-85dd-ab7665a605cd"
+    }
   }
 }
