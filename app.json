@@ -42,13 +42,13 @@
     },
     "extra": {
       "eas": {
-        "projectId": "598eaa4b-c936-4f57-85dd-ab7665a605cd"
+        "projectId": "your_id"
       }
     },
-    "owner": "conectados",
+    "owner": "your",
     "runtimeVersion": "1.0.0",
     "updates": {
-      "url": "https://u.expo.dev/598eaa4b-c936-4f57-85dd-ab7665a605cd"
+      "url": "your_url"
     }
   }
 }
