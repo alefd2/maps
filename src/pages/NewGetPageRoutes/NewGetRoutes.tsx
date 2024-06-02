@@ -1,21 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import * as TaskManager from "expo-task-manager";
-import { View, TouchableOpacity, Text } from "react-native";
-import MapView, { LatLng, Marker, Polyline } from "react-native-maps";
+import {
+  Button,
+  SafeAreaView,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { styles } from "../../../styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
   LocationObject,
-  startLocationUpdatesAsync,
+  watchPositionAsync,
   LocationAccuracy,
   requestBackgroundPermissionsAsync,
 } from "expo-location";
-import { styles } from "./styles";
-import {
-  BACKGROUND_TASK_NAME,
-  startLocationTask,
-} from "./src/tasks/backgroundTask";
+import { useEffect, useState, useRef } from "react";
+import MapView, { LatLng, Marker, Polyline } from "react-native-maps";
+import { saveStorageLocations } from "../../storage/storageLocation";
 
 export default function App() {
   const [location, setLocation] = useState<LocationObject | null>(null);
@@ -42,25 +46,8 @@ export default function App() {
     requestPermissionAsync();
   }, [reset]);
 
-  useEffect(() => {
-    const requestPermissions = async () => {
-      const { status: foregroundStatus } =
-        await requestForegroundPermissionsAsync();
-      if (foregroundStatus === "granted") {
-        const { status: backgroundStatus } =
-          await requestBackgroundPermissionsAsync();
-        if (backgroundStatus === "granted") {
-          await startLocationTask();
-        }
-      }
-    };
-    requestPermissions();
-  }, []);
-
   const handleSalveLatLng = () => {
-    if (currentLocation) {
-      setRoute((prevRoute) => [...prevRoute, currentLocation!]);
-    }
+    setRoute((prevRoute) => [...prevRoute, currentLocation!]);
   };
 
   const handleRestore = () => {
@@ -71,31 +58,22 @@ export default function App() {
     setRoute([]);
   };
 
-  TaskManager.defineTask(BACKGROUND_TASK_NAME, async ({ data, error }: any) => {
-    try {
-      if (error) {
-        throw error;
-      }
-      if (data) {
-        const { coords, timestamp } = data.locations[0];
-
-        let currentLocation = {
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        };
-
-        setCurrentLocation(currentLocation);
-        console.log("asdxfsdfasd", currentLocation);
-
-        mapRef.current?.animateCamera({
-          pitch: 70,
-          center: currentLocation,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  // useEffect(() => {
+  //   watchPositionAsync(
+  //     {
+  //       accuracy: LocationAccuracy.Highest,
+  //       timeInterval: intervalo,
+  //       distanceInterval: distance,
+  //     },
+  //     (response) => {
+  //       mapRef.current?.animateCamera({
+  //         pitch: 70,
+  //         center: response.coords,
+  //       });
+  //       setCurrentLocation(response.coords);
+  //     }
+  //   );
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -123,11 +101,11 @@ export default function App() {
             backgroundColor: "#01b452",
             padding: 10,
             borderRadius: 5,
-            elevation: 5,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            elevation: 5, // Adicionando sombra
+            shadowColor: "#000", // Cor da sombra
+            shadowOffset: { width: 0, height: 2 }, // Offset da sombra
+            shadowOpacity: 0.25, // Opacidade da sombra
+            shadowRadius: 3.84, // Raio da sombra
             display: "flex",
             margin: 10,
             width: "auto",

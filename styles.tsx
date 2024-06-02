@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-    width: " 100%",
+    width: "100%",
   },
   actionWrapper: {
     // backgroundColor: "#ffffffba",
