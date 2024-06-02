@@ -7,8 +7,6 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
   LocationObject,
-  startLocationUpdatesAsync,
-  LocationAccuracy,
   requestBackgroundPermissionsAsync,
 } from "expo-location";
 import { styles } from "./styles";
@@ -85,7 +83,7 @@ export default function App() {
         };
 
         setCurrentLocation(currentLocation);
-        console.log("asdxfsdfasd", currentLocation);
+        console.log("teste", currentLocation);
 
         mapRef.current?.animateCamera({
           pitch: 70,
@@ -143,11 +141,11 @@ export default function App() {
         <TouchableOpacity
           style={{
             backgroundColor: "#b42b01",
-            elevation: 5, // Adicionando sombra
-            shadowColor: "#000", // Cor da sombra
-            shadowOffset: { width: 0, height: 2 }, // Offset da sombra
-            shadowOpacity: 0.25, // Opacidade da sombra
-            shadowRadius: 3.84, // Raio da sombra
+            elevation: 5,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
             padding: 10,
             borderRadius: 5,
             margin: 10,
@@ -162,15 +160,15 @@ export default function App() {
               backgroundColor: "#ffffff",
               padding: 10,
               borderRadius: 5,
-              elevation: 5, // Adicionando sombra
-              shadowColor: "#000", // Cor da sombra
-              shadowOffset: { width: 0, height: 2 }, // Offset da sombra
-              shadowOpacity: 0.25, // Opacidade da sombra
-              shadowRadius: 3.84, // Raio da sombra
+              elevation: 5,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
               fontSize: 10,
             }}
           >
-            Pontos salvos: {route.length}{" "}
+            Pontos salvos: {route.length}
           </Text>
         )}
       </View>
